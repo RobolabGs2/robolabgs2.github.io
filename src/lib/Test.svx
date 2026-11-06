@@ -1,0 +1,10 @@
+<script>
+    let c = `*А так*`
+</script>
+
+# Welcome to SvelteKit
+
+Тестим мракдаун
+{c}
+
+**А этак**
