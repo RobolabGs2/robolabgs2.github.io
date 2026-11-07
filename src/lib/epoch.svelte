@@ -4,16 +4,23 @@
 	import Project from './project.svelte';
 
 	let { epoch, filter }: { epoch: Epoch; filter: Technology[] } = $props();
+
+	function dateToString(date: Date) {
+		return `${(date.getUTCMonth()+1).toString().padStart(2, '0')}.${date.getUTCFullYear()}`;
+	}
 </script>
 
 <article>
-	<header title={epoch.place.full}>{epoch.status}, {epoch.place.short}</header>
+	<header title={epoch.place.full}>
+		{epoch.status}, {epoch.place.short},
+		{dateToString(epoch.start)}–{#if epoch.end}{dateToString(epoch.end)}{:else}настоящее время{/if}
+	</header>
 	{#if epoch.comment}
 		<section><Md text={epoch.comment} /></section>
 	{/if}
 	<section>
 		{#each epoch.projects.filter( (p) => (filter.length ? p.stack.some( (t) => filter.find((v) => v == t) ) : true) ) as project (project.name)}
-			<Project project={project} />
+			<Project {project} />
 		{/each}
 	</section>
 </article>

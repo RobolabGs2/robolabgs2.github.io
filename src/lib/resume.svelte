@@ -117,18 +117,18 @@
 				</section>
 			</section>
 			<section>
-				<header>Образование</header>
-				<section>
-					{#each resume.education as epoch (epoch.start)}
-						<Epoch {epoch} {filter} />
-					{/each}
-				</section>
-			</section>
-			<section>
 				<header>Pet-проекты</header>
 				<section>
 					{#each resume.pets.filter( (p) => (filter.length ? p.stack.some( (t) => filter.find((v) => v == t) ) : true) ) as project (project.name)}
 						<Project {project} />
+					{/each}
+				</section>
+			</section>
+			<section>
+				<header>Образование</header>
+				<section>
+					{#each resume.education as epoch (epoch.start)}
+						<Epoch {epoch} {filter} />
 					{/each}
 				</section>
 			</section>
@@ -203,5 +203,10 @@
 	}
 	.contacts > * {
 		padding-right: 16px;
+	}
+	.epochs header {
+		text-align: center;
+		font-size: x-large;
+		border-top: 1px #111827 solid;
 	}
 </style>

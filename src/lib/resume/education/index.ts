@@ -76,7 +76,7 @@ const mastersProjects: Project[] = [
 	},
 	{
 		name: 'Тетрис',
-		stack: [Technology.GameDev, Technology.Typescript, Technology.WebGL, Technology.Parcel],
+		stack: [Technology.GameDev, Technology.Typescript, Technology.Parcel],
 		description: 'Тетрис с прогрессией и постепенным уменьшением освещения.',
 		repo: 'https://github.com/mmcs-gd/tetris-RobolabGs2',
 		link: 'https://mmcs-gd.github.io/tetris-RobolabGs2/',
