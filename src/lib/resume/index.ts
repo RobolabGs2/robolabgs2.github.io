@@ -1,19 +1,18 @@
 import education from "./education";
-import sva from "./jobs/sva";
-import mmcs from "./jobs/mmcs";
-import type { Epoch, Resume } from "#lib";
-import sebbia from "./jobs/sebbia";
+import type { Resume } from "#lib";
+import pets from "./pets";
+import jobs from "./jobs";
 
-const jobs: Epoch[] = [sva, mmcs, sebbia];
 
 export default {
 	name: 'Иванченко Вячеслав Вадимович',
 	birth: new Date('1999-10-17'),
 	contacts: [
 		{ type: 'TG', link: '@vivacheslav' },
-		{ type: 'GH', link: 'RobolabGs2' }
+		{ type: 'GH', link: 'RobolabGs2' },
+		{ type: 'email', link: 'slavikelk@yandex.ru'},
 	],
 	education: education.toReversed(),
 	jobs: jobs.toReversed(),
-	pets: []
+	pets: pets
 } satisfies Resume;

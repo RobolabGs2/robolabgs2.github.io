@@ -19,7 +19,6 @@ export default {
 - Быстро устранил критическую проблему с уже разосланными некорректными URL в production.`,
 			stack: [
 				Technology.Backend,
-				Technology.Nets,
 				Technology.Go,
 				Technology.Python3,
 				Technology.OpenAI,

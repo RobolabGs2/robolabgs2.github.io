@@ -1,23 +1,38 @@
 <script lang="ts">
 	import type { Resume, Technology } from '#lib';
 	import Epoch from './epoch.svelte';
-
+	import Project from './project.svelte';
+	import IconMail from '@tabler/icons-svelte-runes/icons/mail';
+	import IconGithub from '@tabler/icons-svelte-runes/icons/brand-github';
+	import IconTelegram from '@tabler/icons-svelte-runes/icons/brand-telegram';
 	let { resume, filter = $bindable([]) }: { resume: Resume; filter: Technology[] } = $props();
 
 	const stack = $derived(
 		[...resume.jobs, ...resume.education]
 			.flatMap((e) => e.projects.flatMap((p) => p.stack))
+			.concat(resume.pets.flatMap((e) => e.stack))
 			.filter(deduplicate())
 	);
 	const stackByType = $derived(
 		stack
-			.reduce((acc, value) => {
-				acc.get(value.type)?.push(value) || acc.set(value.type, [value]);
-				acc
-					.get(value.type)
-					?.sort((a, b) => (a.name.toLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1));
-				return acc;
-			}, new Map<Technology['type'], Technology[]>())
+			.reduce(
+				(acc, value) => {
+					acc.get(value.type)?.push(value) || acc.set(value.type, [value]);
+					acc
+						.get(value.type)
+						?.sort((a, b) => (a.name.toLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1));
+					return acc;
+				},
+				new Map<Technology['type'], Technology[]>([
+					['стек', []],
+					['доменная область', []],
+					['язык', []],
+					['игровой движок', []],
+					['база данных', []],
+					['библиотека/фреймворк/API', []],
+					['CI/CD', []]
+				])
+			)
 			.entries()
 	);
 	const age = $derived((Date.now() - +resume.birth) / (1000 * 60 * 60 * 24 * 365));
@@ -55,6 +70,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Резюме {resume.name}</title>
+</svelte:head>
 <article class="body">
 	<article class="stack">
 		{#each stackByType as stack (stack[0])}
@@ -75,6 +93,20 @@
 	</article>
 	<main>
 		<header>{resume.name}, {years(age)}, стаж {years(experience)}</header>
+		<article>
+			<header>Контакты</header>
+			<section class="contacts">
+				{#each resume.contacts as contact (contact.link)}
+					{#if contact.type == 'email'}
+						<IconMail /><a href={`mailto:${contact.link}`}>{contact.link}</a>
+					{:else if contact.type == 'GH'}
+						<IconGithub /><a href={`https://github.com/${contact.link}`}>{contact.link}</a>
+					{:else if contact.type == 'TG'}
+						<IconTelegram /><a href={`https://t.me/${contact.link.substring(1)}`}>{contact.link}</a>
+					{/if}
+				{/each}
+			</section>
+		</article>
 		<article class="epochs">
 			<section>
 				<header>Опыт работы</header>
@@ -89,6 +121,14 @@
 				<section>
 					{#each resume.education as epoch (epoch.start)}
 						<Epoch {epoch} {filter} />
+					{/each}
+				</section>
+			</section>
+			<section>
+				<header>Pet-проекты</header>
+				<section>
+					{#each resume.pets.filter( (p) => (filter.length ? p.stack.some( (t) => filter.find((v) => v == t) ) : true) ) as project (project.name)}
+						<Project {project} />
 					{/each}
 				</section>
 			</section>
@@ -156,5 +196,12 @@
 		font-weight: bold;
 		margin: 4px;
 		align-self: center;
+	}
+	.contacts {
+		display: flex;
+		align-items: center;
+	}
+	.contacts > * {
+		padding-right: 16px;
 	}
 </style>

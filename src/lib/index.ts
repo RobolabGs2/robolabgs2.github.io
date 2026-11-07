@@ -1,7 +1,7 @@
 export interface Resume {
 	name: string;
 	birth: Date;
-	contacts: { type: 'TG' | 'GH'; link: string }[];
+	contacts: { type: 'TG' | 'GH' | 'email'; link: string }[];
 	education: Epoch[];
 	jobs: Epoch[];
 	pets: Project[];

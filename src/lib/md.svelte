@@ -33,7 +33,11 @@
 </article>
 
 <style>
-	article {
+	article :global(ul) {
 		padding-left: 16px;
+	}
+	article :global(p) {
+		padding-top: 4px;
+		padding-bottom: 4px;
 	}
 </style>
