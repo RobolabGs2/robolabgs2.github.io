@@ -62,7 +62,7 @@ export class Technology {
 
 	static MongoDB = new Technology('MongoDB', 'база данных');
 	static Clickhouse = new Technology('Clickhouse', 'база данных');
-	static PostgreSQL = new Technology('PostgeSQL', 'база данных');
+	static PostgreSQL = new Technology('PostgreSQL', 'база данных');
 	static Kafka = new Technology('Kafka', 'база данных');
 
 	static Spring = new Technology('Spring', 'библиотека/фреймворк/API');
@@ -76,6 +76,7 @@ export class Technology {
 	static Cgo = new Technology('Cgo', 'библиотека/фреймворк/API');
 	static FFMPEG = new Technology('ffmpeg', 'библиотека/фреймворк/API');
 	static Ktor = new Technology('Ktor', 'библиотека/фреймворк/API');
+	static MLAgents = new Technology('Unity ML Agents Toolkit', 'библиотека/фреймворк/API')
 
 	static GitlabCI = new Technology('Gitlab CI', 'CI/CD');
 	static GitHubCI = new Technology('GitHub Actions', 'CI/CD');

@@ -11,6 +11,11 @@ import runImage from './botctl/run.png';
 import testerRun from './tester/run.png';
 import testerReport from './tester/report.png';
 
+import mlLab1 from './ml-labs/manipulator_demo_512.gif';
+import mlLab2 from './ml-labs/agent_button.gif';
+import mlLab3 from './ml-labs/env_demo.png';
+import mlLab4 from './ml-labs/env_demo (1).png';
+
 const teacherProjects: Project[] = [
 	{
 		name: 'botctl',
@@ -51,6 +56,33 @@ const teacherProjects: Project[] = [
 				url: testerReport,
 				description: 'Пример отчёта.'
 			}
+		]
+	},
+	{
+		name: 'Набор лабораторных работ с Unity ML-Agents Toolkit',
+		stack: [Technology.GameDev, Technology.Unity, Technology.MLAgents],
+		description: `Три лабораторных работы на работу с фреймворком Unity ML-Agents Toolkit:
+* Обучение манипулятора: [AI_RL_Lab_01](https://github.com/RobolabGs2/AI_RL_Lab_01)
+* Обучение агента с сенсорами: [AI_RL_Lab_02](https://github.com/RobolabGs2/AI_RL_Lab_02)
+* Self-playing: [AI_RL_Lab_03](https://github.com/RobolabGs2/AI_RL_Lab_03)`,
+		images: [
+			{
+				url: mlLab1,
+				description: "Первая лабораторная."
+			},
+			{
+				url: mlLab2,
+				description: "Вторая лабораторная."
+			},
+			{
+				url: mlLab3,
+				description: "Вторая лабораторная."
+			},
+			{
+				url: mlLab4,
+				description: "Третья лабораторная."
+			}
+
 		]
 	}
 ];

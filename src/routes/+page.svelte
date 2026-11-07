@@ -5,7 +5,5 @@
 
 <Resume
 	{resume}
-	// filter={[
-	// 	Technology.Go
-	// ]}
+	filter={[]}
 ></Resume>

@@ -2,12 +2,23 @@
 	import type { Resume, Technology } from '#lib';
 	import Epoch from './epoch.svelte';
 
-	let { resume, filter }: { resume: Resume; filter?: Technology[] } = $props();
+	let { resume, filter = $bindable([]) }: { resume: Resume; filter: Technology[] } = $props();
 
 	const stack = $derived(
 		[...resume.jobs, ...resume.education]
 			.flatMap((e) => e.projects.flatMap((p) => p.stack))
 			.filter(deduplicate())
+	);
+	const stackByType = $derived(
+		stack
+			.reduce((acc, value) => {
+				acc.get(value.type)?.push(value) || acc.set(value.type, [value]);
+				acc
+					.get(value.type)
+					?.sort((a, b) => (a.name.toLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1));
+				return acc;
+			}, new Map<Technology['type'], Technology[]>())
+			.entries()
 	);
 	const age = $derived((Date.now() - +resume.birth) / (1000 * 60 * 60 * 24 * 365));
 	const experience = $derived(
@@ -44,7 +55,24 @@
 	}
 </script>
 
-<article>
+<article class="body">
+	<article class="stack">
+		{#each stackByType as stack (stack[0])}
+			<header>
+				{stack[0]}
+			</header>
+			{#each stack[1] as tech (tech.name)}
+				<label
+					><input
+						name="filter"
+						bind:group={filter}
+						value={tech}
+						type="checkbox"
+					/>{tech.name}</label
+				>
+			{/each}
+		{/each}
+	</article>
 	<main>
 		<header>{resume.name}, {years(age)}, стаж {years(experience)}</header>
 		<article class="epochs">
@@ -65,24 +93,43 @@
 				</section>
 			</section>
 		</article>
-		<article class="stack">
-			{#each stack as tech (tech.name)}
-				<div>
-					{tech.name}
-				</div>
-			{/each}
-		</article>
 	</main>
 </article>
 
 <style>
-	article {
+	:global(*) {
+		box-sizing: border-box;
+		margin: 0px;
+		padding: 0px;
+	}
+	.body {
 		width: 100%;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
+		flex-direction: row;
+		align-items: start;
+		background-color: #f7f7f7;
+		font-family: "Roboto", sans-serif;
+		font-optical-sizing: auto;
 	}
 	main {
 		max-width: 704px;
+		margin: 16px;
+		overflow-y: auto;
+	}
+	.stack {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		background-color: #ffffff;
+		padding: 16px;
+		margin: 8px;
+		border-radius: 16px;
+		overflow-y: auto;
+	}
+	.stack label {
+		margin-top: 4px;
+	}
+	.stack input {
+		margin-right: 8px;
 	}
 </style>
