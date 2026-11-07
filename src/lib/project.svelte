@@ -14,9 +14,9 @@
 	<header>
 		<button onclick={() => (showDescription = !showDescription)}>
 			{#if showDescription}
-				<ShevronUp size={16}/>
+				<ShevronUp size={16} />
 			{:else}
-				<ShevronDown size={16}/>
+				<ShevronDown size={16} />
 			{/if}
 		</button>
 		{project.name} ({project.stack.map((t) => t.name).join(', ')})
@@ -38,6 +38,12 @@
 </article>
 
 <style>
+	header {
+		font-size: small;
+		font-weight: 700;
+		margin-bottom: 1rem;
+		color: #111827;
+	}
 	article {
 		background-color: #ffffff;
 		padding: 16px;

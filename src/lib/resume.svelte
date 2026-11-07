@@ -107,14 +107,32 @@
 		display: flex;
 		flex-direction: row;
 		align-items: start;
-		background-color: #f7f7f7;
-		font-family: "Roboto", sans-serif;
+		background-color: #f9fafb;
+		font-family: 'Roboto', sans-serif;
 		font-optical-sizing: auto;
+		font-size: small;
+		color: #1f1f1f;
+	}
+	@media (max-width: 888px) {
+		.body {
+			flex-direction: column;
+		}
+
+		.stack {
+			margin: 4px;
+		}
 	}
 	main {
 		max-width: 704px;
 		margin: 16px;
+		padding: 4px;
 		overflow-y: auto;
+	}
+	header {
+		font-size: medium;
+		font-weight: 700;
+		margin-bottom: 1rem;
+		color: #111827;
 	}
 	.stack {
 		display: flex;
@@ -123,13 +141,20 @@
 		background-color: #ffffff;
 		padding: 16px;
 		margin: 8px;
-		border-radius: 16px;
+		border-radius: 12px;
 		overflow-y: auto;
+		border: 1px solid #e5e7eb;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 	}
 	.stack label {
 		margin-top: 4px;
 	}
 	.stack input {
 		margin-right: 8px;
+	}
+	.stack header {
+		font-weight: bold;
+		margin: 4px;
+		align-self: center;
 	}
 </style>
