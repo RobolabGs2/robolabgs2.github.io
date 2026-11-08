@@ -23,8 +23,8 @@
 	</header>
 	{#if showDescription}
 		<section class="content" transition:slide>
-			{#if project.repo}<section><a href={project.repo}>Исходный код</a></section>{/if}
-			{#if project.link}<section><a href={project.link}>{project.link}</a></section>{/if}
+			{#if project.repo}<section class="link"><a href={project.repo}>Исходный код</a></section>{/if}
+			{#if project.link}<section class="link"><a href={project.link}>{project.link}</a></section>{/if}
 			{#if project.images}
 				<section class="images">
 					{#each project.images as image (image.url)}
@@ -50,9 +50,6 @@
 		margin: 8px;
 		border-radius: 16px;
 	}
-	.content {
-		padding-left: 32px;
-	}
 	.images {
 		display: flex;
 		overflow-x: scroll;
@@ -62,5 +59,25 @@
 		max-width: 100%;
 		margin: 4px;
 		object-fit: contain;
+	}
+	@media print {
+		article {
+			padding: 4px;
+			margin: 4px;
+		}
+		header {
+			margin-bottom: 8px;
+		}
+		button, .images, .link {
+			border: 0;
+			clip: rect(0 0 0 0);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			white-space: nowrap;
+			width: 1px;
+		}
 	}
 </style>

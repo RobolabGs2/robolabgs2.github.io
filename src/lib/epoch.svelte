@@ -6,7 +6,7 @@
 	let { epoch, filter }: { epoch: Epoch; filter: Technology[] } = $props();
 
 	function dateToString(date: Date) {
-		return `${(date.getUTCMonth()+1).toString().padStart(2, '0')}.${date.getUTCFullYear()}`;
+		return `${(date.getUTCMonth() + 1).toString().padStart(2, '0')}.${date.getUTCFullYear()}`;
 	}
 </script>
 
@@ -38,5 +38,15 @@
 		font-weight: 700;
 		margin-bottom: 1rem;
 		color: #111827;
+	}
+	@media print {
+		header {
+			margin-bottom: 8px;
+		}
+		article {
+			background-color: #ffffff;
+			box-shadow: none;
+			margin: 4px;
+		}
 	}
 </style>
