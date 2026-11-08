@@ -11,7 +11,7 @@ import oddvarSimple from './oddvar/simple.png';
 const bachelorsProjects: Project[] = [
 	{
 		name: 'ВКР: Oddvar — 2D симулятор а-ля игровой движок',
-		stack: [Technology.Frontend, Technology.Typescript, Technology.GitHubCI, Technology.Webpack],
+		stack: [Technology.Frontend, Technology.Typescript, Technology.GitHubCI, Technology.Webpack, Technology.GameDev],
 		description: 'Фреймворк для симуляций и набор симуляций, созданные в рамках ВКР с использованием Canvas API.',
 		repo: 'https://github.com/RobolabGs2/oddvar',
 		link: 'https://robolabgs2.github.io/oddvar/',
@@ -42,7 +42,7 @@ const mastersProjects: Project[] = [
 	memaker,
 	{
 		name: 'Система частиц на WebGL',
-		stack: [Technology.CG, Technology.Typescript, Technology.WebGL, Technology.Parcel],
+		stack: [Technology.CG, Technology.Typescript, Technology.WebGL, Technology.Parcel, Technology.GameDev, Technology.Frontend],
 		description: 'Простая система частиц: фейрверки, огонь с дымом на голом WebGL.',
 		repo: 'https://github.com/RobolabGs2/particles-lab',
 		link: 'https://robolabgs2.github.io/particles-lab/',
@@ -63,7 +63,7 @@ const mastersProjects: Project[] = [
 	},
 	{
 		name: 'Тени на WebGL',
-		stack: [Technology.CG, Technology.Typescript, Technology.WebGL, Technology.Parcel],
+		stack: [Technology.CG, Technology.Typescript, Technology.WebGL, Technology.Parcel, Technology.GameDev, Technology.Frontend],
 		description: 'С нуля написанный рендер 3D сцены с базовым освещением и тенями.',
 		repo: 'https://github.com/RobolabGs2/shadows-webgl2',
 		link: 'https://robolabgs2.github.io/shadows-webgl2/',
@@ -76,7 +76,7 @@ const mastersProjects: Project[] = [
 	},
 	{
 		name: 'Тетрис',
-		stack: [Technology.GameDev, Technology.Typescript, Technology.Parcel],
+		stack: [Technology.GameDev, Technology.Typescript, Technology.Parcel, Technology.Frontend],
 		description: 'Тетрис с прогрессией и постепенным уменьшением освещения.',
 		repo: 'https://github.com/mmcs-gd/tetris-RobolabGs2',
 		link: 'https://mmcs-gd.github.io/tetris-RobolabGs2/',
@@ -97,7 +97,7 @@ const mastersProjects: Project[] = [
 	},
 	{
 		name: 'Прототип игры с процедурной генерацией карты',
-		stack: [Technology.GameDev, Technology.Typescript, Technology.Phaser3, Technology.Parcel],
+		stack: [Technology.GameDev, Technology.Typescript, Technology.Phaser3, Technology.Parcel, Technology.Frontend],
 		description:
 			'Прототип игры с процедурной генерацией карты с использованием графов и клеточных автоматов',
 		repo: 'https://github.com/RobolabGs2/aurora-housekeeper',

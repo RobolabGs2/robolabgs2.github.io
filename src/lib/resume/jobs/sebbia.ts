@@ -31,7 +31,7 @@ export default {
 - Улучшил асинхронную обработку и производительность.
 - Собрал кастомную версию ffmpeg с аппаратным ускорением под конкретную платформу.
 - Ускорение с 0.1 FPS до 10 FPS.`,
-			stack: [Technology.Go, Technology.Cgo, Technology.FFMPEG]
+			stack: [Technology.Go, Technology.Cgo, Technology.FFMPEG, Technology.Backend]
 		},
 		{
 			name: 'Билетная система',

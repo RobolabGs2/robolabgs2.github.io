@@ -48,10 +48,15 @@ export class Technology {
 			| 'стек',
 		readonly versions?: string
 	) {}
+	serialize(): string {
+		return (Object.entries(Technology).find(([_name, tech]) => tech == this) || ['Unknown'])[0];
+	}
+	static deserialize(str: string): Technology | null {
+		return (Object.entries(Technology).find(([name, _tech]) => name == str) || ['Unknown', null])[1];
+	}
 	static Cybersec = new Technology('Информационная безопасность', 'доменная область');
 	static Nets = new Technology('Компьютерные сети', 'доменная область');
 	static CG = new Technology('Компьютерная графика', 'доменная область');
-	static GameDev = new Technology('Gamedev', 'доменная область');
 
 	static Go = new Technology('Go', 'язык', 'с 1.13');
 	static Java = new Technology('Java', 'язык');
@@ -76,7 +81,7 @@ export class Technology {
 	static Cgo = new Technology('Cgo', 'библиотека/фреймворк/API');
 	static FFMPEG = new Technology('ffmpeg', 'библиотека/фреймворк/API');
 	static Ktor = new Technology('Ktor', 'библиотека/фреймворк/API');
-	static MLAgents = new Technology('Unity ML Agents Toolkit', 'библиотека/фреймворк/API')
+	static MLAgents = new Technology('Unity ML Agents Toolkit', 'библиотека/фреймворк/API');
 
 	static GitlabCI = new Technology('Gitlab CI', 'CI/CD');
 	static GitHubCI = new Technology('GitHub Actions', 'CI/CD');
@@ -86,6 +91,8 @@ export class Technology {
 
 	static Frontend = new Technology('Фронтенд', 'стек');
 	static Backend = new Technology('Бэкенд', 'стек');
+	static GameDev = new Technology('Gamedev', 'стек');
+	static CLI = new Technology('CLI', 'стек');
 
 	static Phaser3 = new Technology('Phaser', 'игровой движок', '3.20.0');
 	static Godot = new Technology('Godot', 'игровой движок', '4');

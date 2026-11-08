@@ -5,38 +5,24 @@
 	import IconMail from '@tabler/icons-svelte-runes/icons/mail';
 	import IconGithub from '@tabler/icons-svelte-runes/icons/brand-github';
 	import IconTelegram from '@tabler/icons-svelte-runes/icons/brand-telegram';
+	import StackFilter from './stack-filter.svelte';
 	let { resume, filter = $bindable([]) }: { resume: Resume; filter: Technology[] } = $props();
 
-	const stack = $derived(
-		[...resume.jobs, ...resume.education]
-			.flatMap((e) => e.projects.flatMap((p) => p.stack))
-			.concat(resume.pets.flatMap((e) => e.stack))
-			.filter(deduplicate())
+	let stack = $derived(
+		Array.from(
+			[...resume.jobs, ...resume.education]
+				.flatMap((e) => e.projects.flatMap((p) => p.stack))
+				.concat(resume.pets.flatMap((e) => e.stack))
+				.reduce((counts, tech) => {
+					counts.set(tech, (counts.get(tech) || 0) + 1);
+					return counts;
+				}, new Map<Technology, number>())
+				.entries()
+		)
 	);
-	const stackByType = $derived(
-		stack
-			.reduce(
-				(acc, value) => {
-					acc.get(value.type)?.push(value) || acc.set(value.type, [value]);
-					acc
-						.get(value.type)
-						?.sort((a, b) => (a.name.toLowerCase() < b.name.toLocaleLowerCase() ? -1 : 1));
-					return acc;
-				},
-				new Map<Technology['type'], Technology[]>([
-					['стек', []],
-					['доменная область', []],
-					['язык', []],
-					['игровой движок', []],
-					['база данных', []],
-					['библиотека/фреймворк/API', []],
-					['CI/CD', []]
-				])
-			)
-			.entries()
-	);
-	const age = $derived((Date.now() - +resume.birth) / (1000 * 60 * 60 * 24 * 365));
-	const experience = $derived(
+
+	let age = $derived((Date.now() - +resume.birth) / (1000 * 60 * 60 * 24 * 365));
+	let experience = $derived(
 		(Date.now() - +resume.jobs.reduce((j1, j2) => (j1.start < j2.start ? j1 : j2)).start) /
 			(1000 * 60 * 60 * 24 * 365)
 	);
@@ -60,37 +46,13 @@
 		}
 		throw new Error(`${y} not a number`);
 	}
-	function deduplicate<T>() {
-		const visited = new Set();
-		return (item: T) => {
-			if (visited.has(item)) return false;
-			visited.add(item);
-			return true;
-		};
-	}
 </script>
 
 <svelte:head>
 	<title>Резюме {resume.name}</title>
 </svelte:head>
 <article class="body">
-	<article class="stack">
-		{#each stackByType as stack (stack[0])}
-			<header>
-				{stack[0]}
-			</header>
-			{#each stack[1] as tech (tech.name)}
-				<label
-					><input
-						name="filter"
-						bind:group={filter}
-						value={tech}
-						type="checkbox"
-					/>{tech.name}</label
-				>
-			{/each}
-		{/each}
-	</article>
+	<StackFilter {stack} bind:filter />
 	<main>
 		<header>{resume.name}, {years(age)}, стаж {years(experience)}</header>
 		<article>
@@ -120,7 +82,7 @@
 				<header>Pet-проекты</header>
 				<section>
 					{#each resume.pets.filter( (p) => (filter.length ? p.stack.some( (t) => filter.find((v) => v == t) ) : true) ) as project (project.name)}
-						<Project {project} />
+						<Project {project} {filter} />
 					{/each}
 				</section>
 			</section>
@@ -157,25 +119,10 @@
 		.body {
 			flex-direction: column;
 		}
-
-		.stack {
-			margin: 4px;
-		}
 	}
 	@media print {
 		.body {
 			background-color: #ffffff;
-		}
-		.stack {
-			border: 0;
-			clip: rect(0 0 0 0);
-			height: 1px;
-			margin: -1px;
-			overflow: hidden;
-			padding: 0;
-			position: absolute;
-			white-space: nowrap;
-			width: 1px;
 		}
 	}
 	main {
@@ -189,29 +136,6 @@
 		font-weight: 700;
 		margin-bottom: 1rem;
 		color: #111827;
-	}
-	.stack {
-		display: flex;
-		flex-direction: column;
-		align-items: start;
-		background-color: #ffffff;
-		padding: 16px;
-		margin: 8px;
-		border-radius: 12px;
-		overflow-y: auto;
-		border: 1px solid #e5e7eb;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-	}
-	.stack label {
-		margin-top: 4px;
-	}
-	.stack input {
-		margin-right: 8px;
-	}
-	.stack header {
-		font-weight: bold;
-		margin: 4px;
-		align-self: center;
 	}
 	.contacts {
 		display: flex;

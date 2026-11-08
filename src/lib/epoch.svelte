@@ -20,7 +20,7 @@
 	{/if}
 	<section>
 		{#each epoch.projects.filter( (p) => (filter.length ? p.stack.some( (t) => filter.find((v) => v == t) ) : true) ) as project (project.name)}
-			<Project {project} />
+			<Project {project} {filter} />
 		{/each}
 	</section>
 </article>

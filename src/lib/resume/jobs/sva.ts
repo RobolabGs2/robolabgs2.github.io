@@ -37,6 +37,7 @@ const svaProjects: Project[] = [
 			Technology.GitlabCI,
 			Technology.Docker,
 			Technology.Kubernetes,
+			Technology.Helm,
 			Technology.Backend,
 			Technology.Frontend
 		],
@@ -59,7 +60,7 @@ const svaProjects: Project[] = [
 	},
 	{
 		name: 'Внутренний линтер',
-		stack: [Technology.Go, Technology.Docker, Technology.GitlabCI],
+		stack: [Technology.Go, Technology.Docker, Technology.GitlabCI, Technology.CLI],
 		description: `Около 2 лет. Консольная утилита.
 - Разработал и поддерживал внутренний линтер для поиска чувствительных данных.
 - Добавил поддержку git diff и гибкую систему исключений для разных языков.
@@ -67,7 +68,7 @@ const svaProjects: Project[] = [
 	},
 	{
 		name: 'Проект по безопасности сетей',
-		stack: [Technology.Go, Technology.GitlabCI, Technology.Cybersec, Technology.Docker],
+		stack: [Technology.Go, Technology.GitlabCI, Technology.Cybersec, Technology.Docker, Technology.Backend],
 		description:
 			`Около года. Наукоёмкий проект с безопасностью компьютерных сетей. 
 - Изучал научные статьи, разные IDS.

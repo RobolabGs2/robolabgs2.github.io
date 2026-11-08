@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import type { Project } from '#lib';
+	import type { Project, Technology } from '#lib';
 	import Md from './md.svelte';
 	import ShevronUp from '@tabler/icons-svelte-runes/icons/chevron-up';
 	import ShevronDown from '@tabler/icons-svelte-runes/icons/chevron-down';
 
-	let { project }: { project: Project } = $props();
+	let { project, filter }: { project: Project; filter: Technology[] } = $props();
 
 	let showDescription = $state(true);
 </script>
@@ -19,12 +19,18 @@
 				<ShevronDown size={16} />
 			{/if}
 		</button>
-		{project.name} ({project.stack.map((t) => t.name).join(', ')})
+		{project.name} ({#each project.stack as tech (tech.name)}<span
+				class={`stack ${filter.find((x) => x == tech) != null ? 'selectedFilter' : ''}`}
+			>
+				{tech.name}
+			</span>{/each})
 	</header>
 	{#if showDescription}
 		<section class="content" transition:slide>
-			{#if project.repo}<section class="link"><a href={project.repo}>Исходный код</a></section>{/if}
-			{#if project.link}<section class="link"><a href={project.link}>{project.link}</a></section>{/if}
+			<section class="link">
+				{#if project.repo}<a href={project.repo}>Исходный код</a>{/if}
+				{#if project.link}<a href={project.link}>{project.link}</a>{/if}
+			</section>
 			{#if project.images}
 				<section class="images">
 					{#each project.images as image (image.url)}
@@ -38,6 +44,12 @@
 </article>
 
 <style>
+	.stack:not(:last-child)::after {
+		content: ', ';
+	}
+	.selectedFilter {
+		color: red;
+	}
 	header {
 		font-size: small;
 		font-weight: 700;
@@ -68,7 +80,8 @@
 		header {
 			margin-bottom: 8px;
 		}
-		button, .images, .link {
+		button,
+		.images {
 			border: 0;
 			clip: rect(0 0 0 0);
 			height: 1px;

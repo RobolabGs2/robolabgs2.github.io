@@ -19,7 +19,7 @@ import mlLab4 from './ml-labs/env_demo (1).png';
 const teacherProjects: Project[] = [
 	{
 		name: 'botctl',
-		stack: [Technology.Go, Technology.GitHubCI],
+		stack: [Technology.Go, Technology.GitHubCI, Technology.CLI],
 		description:
 			'CLI утилита для проведения соревнований между ботами в рамках курса CS253. Интеллектуальные системы. Вызывает конкурентно бинари студентов и выдаёт таблицу с результатами соревнований и их логами.',
 		repo: 'https://github.com/RobolabGs2/botctl',
@@ -44,7 +44,7 @@ const teacherProjects: Project[] = [
 	},
 	{
 		name: 'tester',
-		stack: [Technology.Go, Technology.GitHubCI],
+		stack: [Technology.Go, Technology.GitHubCI, Technology.CLI],
 		description: 'CLI утилита для тестирования заданий с Codingame с отрисовкой в svg.',
 		repo: 'https://github.com/RobolabGs2/tester',
 		images: [
